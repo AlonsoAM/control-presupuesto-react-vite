@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Header from "./components/Header.jsx";
 import Modal from "./components/Modal.jsx";
+import { generarID, generateUUID } from "./helpers";
 import IconoNuevoGasto from "./img/nuevo-gasto.svg";
 
 function App() {
@@ -18,7 +19,8 @@ function App() {
   };
 
   const guardarGasto = (gasto) => {
-    console.log(gasto);
+    gasto.id = generateUUID();
+    setGastos([...gastos, gasto]);
   };
 
   return (
