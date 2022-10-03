@@ -9,3 +9,22 @@ export const generateUUID = () => {
   });
   return uuid;
 };
+
+// FormatearFecha
+export const formatearFecha = (fecha) => {
+  const fechaNueva = new Date(fecha);
+  const opciones = {
+    year: "numeric",
+    month: "long",
+    day: "2-digit",
+  };
+  return fechaNueva.toLocaleDateString("es-PE", opciones);
+};
+
+// Formatear Cantidad
+export const formatearCantidad = (cantidad) => {
+  return cantidad.toLocaleString("es-PE", {
+    style: "currency",
+    currency: "PEN",
+  });
+};
