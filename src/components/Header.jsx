@@ -1,11 +1,17 @@
-const Header = () => {
-    return (
-        <>
-            <header>
-                <h1>Planificador de Gastos</h1>
-            </header>
-        </>
-    )
-}
+import NuevoPresupuesto from "./NuevoPresupuesto.jsx";
+
+const Header = ({ presupuesto, setPresupuesto }) => {
+  return (
+    <>
+      <header>
+        <h1>Planificador de Gastos</h1>
+        <NuevoPresupuesto
+          presupuesto={presupuesto}
+          setPresupuesto={setPresupuesto}
+        />
+      </header>
+    </>
+  );
+};
 
 export default Header;
