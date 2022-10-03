@@ -1,17 +1,30 @@
 import { useState } from "react";
 import IconoCerrarModal from "../img/cerrar.svg";
+import Mensaje from "./Mensaje";
 
-const Modal = ({ setModal, animarModal, setAnimarModal }) => {
+const Modal = ({ setModal, animarModal, setAnimarModal, guardarGasto }) => {
   const [nombre, setNombre] = useState("");
-  const [cantidad, setCantidad] = useState(0);
+  const [cantidad, setCantidad] = useState("");
   const [categoria, setCategoria] = useState("");
+  const [mensaje, setMensaje] = useState("");
 
   const ocultarModal = () => {
     setAnimarModal(false);
-
     setTimeout(() => {
       setModal(false);
     }, 500);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if ([nombre, cantidad, categoria].includes("")) {
+      setMensaje("Todos los campos son obligatorios");
+      setTimeout(() => {
+        setMensaje("");
+      }, 2000);
+      return;
+    }
+    guardarGasto({ nombre, cantidad, categoria });
   };
 
   return (
@@ -24,8 +37,12 @@ const Modal = ({ setModal, animarModal, setAnimarModal }) => {
             onClick={ocultarModal}
           />
         </div>
-        <form className={`formulario ${animarModal ? "animar" : "cerrar"}`}>
+        <form
+          onSubmit={handleSubmit}
+          className={`formulario ${animarModal ? "animar" : "cerrar"}`}
+        >
           <legend>Nuevo gasto</legend>
+          {mensaje && <Mensaje tipo="error">{mensaje}</Mensaje>}
           <div className="campo">
             <label htmlFor="nombre">Nombre gasto</label>
             <input
@@ -53,27 +70,13 @@ const Modal = ({ setModal, animarModal, setAnimarModal }) => {
               value={categoria}
               onChange={(e) => setCategoria(e.target.value)}
             >
-              <option value="" key="">
-                -- Seleccione --
-              </option>
-              <option value="ahorro" key="">
-                Ahorro
-              </option>
-              <option value="comida" key="">
-                Comida
-              </option>
-              <option value="casa" key="">
-                Casa
-              </option>
-              <option value="gastos" key="">
-                Gastos Varios
-              </option>
-              <option value="ocio" key="">
-                Ocio
-              </option>
-              <option value="suscripciones" key="">
-                Suscripciones
-              </option>
+              <option value="">-- Seleccione --</option>
+              <option value="ahorro">Ahorro</option>
+              <option value="comida">Comida</option>
+              <option value="casa">Casa</option>
+              <option value="gastos">Gastos Varios</option>
+              <option value="ocio">Ocio</option>
+              <option value="suscripciones">Suscripciones</option>
             </select>
           </div>
           <input type="submit" value="Añadir Gasto" />
