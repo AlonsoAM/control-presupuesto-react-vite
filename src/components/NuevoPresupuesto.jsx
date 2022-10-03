@@ -10,7 +10,7 @@ const NuevoPresupuesto = ({
   const handlePresupuesto = (e) => {
     e.preventDefault();
     // console.log("enviando formulario");
-    console.log(Number(presupuesto));
+
     if (!presupuesto || presupuesto < 0) {
       setMensaje("No es un prespuesto válido");
       return;
